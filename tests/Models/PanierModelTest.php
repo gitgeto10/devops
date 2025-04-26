@@ -19,7 +19,7 @@ class PanierModelTest extends CIUnitTestCase
         $this->model->truncate();
     }
 
-    public function testInsertPanier(): void
+   public function testInsertPanier(): void
 {
     $data = [
         'n_article' => 'R200',
@@ -38,6 +38,9 @@ class PanierModelTest extends CIUnitTestCase
     $this->assertNotEmpty($result);
     $this->assertEquals('R200', $result['n_article']);
     $this->assertEquals('Jamila', $result['client']);
+
+    // Assurez-vous qu'aucune sortie imprévue n'a été générée pendant l'exécution
+    $this->expectOutputString('');
 }
 
     public function testFindAllPanier(): void
