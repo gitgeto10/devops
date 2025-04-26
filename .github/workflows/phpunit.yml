@@ -67,26 +67,28 @@ jobs:
         run: |
           mysql -h 127.0.0.1 -P 3306 -u root -p1234 devops_db -e "
           CREATE TABLE IF NOT EXISTS article (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            ref VARCHAR(50) NOT NULL,
-            nom VARCHAR(255) NOT NULL,
-            prixUnitaire DECIMAL(10,2) NOT NULL,
-            qte INT NOT NULL
+          id INT AUTO_INCREMENT PRIMARY KEY,
+          ref VARCHAR(50) NOT NULL,
+          nom VARCHAR(255) NOT NULL,
+          prixUnitaire DECIMAL(10,2) NOT NULL,
+          qte INT NOT NULL
           );
-          CREATE TABLE factures (
-           id INT AUTO_INCREMENT PRIMARY KEY,
-           
+          CREATE TABLE IF NOT EXISTS factures (
+          id INT AUTO_INCREMENT PRIMARY KEY,
+          user_id INT NOT NULL,
+          total DECIMAL(10,2) NOT NULL
           );
           CREATE TABLE IF NOT EXISTS lignefacture (
-            id INT PRIMARY KEY AUTO_INCREMENT,
-            id_facture INT NOT NULL,
-            id_article INT NOT NULL, 
-            quantity INT NOT NULL,
-            sub_total DECIMAL(10,2) NOT NULL, 
-            FOREIGN KEY (id_facture) REFERENCES factures(id),
-            FOREIGN KEY (id_article) REFERENCES article(id)
+          id INT PRIMARY KEY AUTO_INCREMENT,
+          id_facture INT NOT NULL,
+          id_article INT NOT NULL, 
+          quantity INT NOT NULL,
+          sub_total DECIMAL(10,2) NOT NULL, 
+          FOREIGN KEY (id_facture) REFERENCES factures(id),
+          FOREIGN KEY (id_article) REFERENCES article(id)
           );
           "
+
 
       - name: Configure database connection
         run: |
