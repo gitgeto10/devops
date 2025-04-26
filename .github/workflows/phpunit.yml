@@ -62,6 +62,6 @@ jobs:
           );
         "
 
-    - name: Run PHPUnit tests
+    - name: Run PHPUnit tests with coverage
       run: |
-
+        ./vendor/bin/phpunit --coverage-text tests/FactureModelTest.php
