@@ -29,8 +29,7 @@ jobs:
     - name: Install dependencies
       run: composer install --no-progress --no-suggest
 
-    - name: Set up .env file
-      run: cp .env.example .env
+    
 
     - name: Run migrations
       run: php spark migrate
