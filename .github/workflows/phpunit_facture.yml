@@ -1,0 +1,70 @@
+name: Facture PHPUnit Tests
+
+on:
+  push:
+    branches:
+      - facture
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: devops_db
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, intl, pdo_mysql, mysqli, xdebug
+          coverage: xdebug
+
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --prefer-dist
+
+      - name: Wait for MySQL to be ready
+        run: |
+          echo "Waiting for MySQL to be ready..."
+          for i in {1..30}; do
+            if mysqladmin ping -h 127.0.0.1 -P 3306 -u root -proot --silent; then
+              echo "MySQL is ready!"
+              break
+            fi
+            echo "MySQL not ready yet, waiting..."
+            sleep 2
+          done
+
+      - name: Create facture table
+        run: |
+          mysql -h 127.0.0.1 -P 3306 -u root -proot devops_db -e "CREATE TABLE IF NOT EXISTS factures (id INT AUTO_INCREMENT PRIMARY KEY, user_id INT NOT NULL, total FLOAT NOT NULL);"
+
+      - name: Configure database
+        run: |
+          echo "Setting up database connection"
+          echo "database.default.hostname = 127.0.0.1" >> .env
+          echo "database.default.username = root" >> .env
+          echo "database.default.password = root" >> .env
+          echo "database.default.database = devops_db" >> .env
+          echo "database.default.DBDriver = MySQLi" >> .env
+          echo "database.default.port = 3306" >> .env
+
+      - name: Run PHPUnit tests (only FactureModelTest)
+        run: ./vendor/bin/phpunit --coverage-text tests/FactureModelTest.php
