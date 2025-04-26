@@ -38,6 +38,10 @@ jobs:
       run: |
         composer install
 
+    - name: Make PHPUnit executable
+      run: |
+        chmod +x ./vendor/bin/phpunit
+
     - name: Wait for MySQL
       run: |
         sudo apt-get install -y mysql-client
@@ -64,4 +68,4 @@ jobs:
 
     - name: Run PHPUnit tests with coverage
       run: |
-        ./vendor/bin/phpunit --coverage-text tests/FactureModelTest.php
+        ./vendor/bin/phpunit --coverage-text tests/Models/PanierModelTest.php
