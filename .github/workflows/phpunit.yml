@@ -75,9 +75,7 @@ jobs:
           );
           CREATE TABLE factures (
            id INT AUTO_INCREMENT PRIMARY KEY,
-           user_id INT NOT NULL,
-           total DECIMAL(10,2) NOT NULL,
-           FOREIGN KEY (user_id) REFERENCES users(id)
+           
           );
           CREATE TABLE IF NOT EXISTS lignefacture (
             id INT PRIMARY KEY AUTO_INCREMENT,
