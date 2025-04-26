@@ -13,6 +13,20 @@ jobs:
   phpunit:
     runs-on: ubuntu-latest
 
+    services:
+      mysql:
+        image: mysql:8.0
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: devops_db
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
@@ -29,11 +43,11 @@ jobs:
     - name: Install dependencies
       run: composer install --no-progress --no-suggest
 
-    
+    - name: Wait for MySQL to be ready
+      run: sleep 20
 
     - name: Run migrations
       run: php spark migrate
 
     - name: Run PHPUnit
       run: vendor/bin/phpunit
-
