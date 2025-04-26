@@ -1,0 +1,40 @@
+name: PHPUnit Tests
+
+on:
+  push:
+    branches:
+      - main
+      - lignefacture
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  phpunit:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2'
+        extensions: mbstring, intl, sqlite3, mysqli
+        ini-values: |
+          memory_limit=-1
+        coverage: none
+
+    - name: Install dependencies
+      run: composer install --no-progress --no-suggest
+
+    - name: Set up .env file
+      run: cp .env.example .env
+
+    - name: Run migrations
+      run: php spark migrate
+
+    - name: Run PHPUnit
+      run: vendor/bin/phpunit
+
