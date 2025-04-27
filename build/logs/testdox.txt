@@ -1,4 +1,4 @@
 Panier Model (App\Tests\Models\PanierModel)
- [x] Find all panier
  [x] Insert panier
+ [x] Find all panier
 
