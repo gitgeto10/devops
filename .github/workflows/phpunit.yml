@@ -1,4 +1,4 @@
-name: PHPUnit Tests UserModel + BonLivraisonModel
+name: PHPUnit Tests BonLivraisonModel
 
 on:
   push:
