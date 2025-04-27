@@ -110,6 +110,6 @@ jobs:
         run: |
           ./vendor/bin/phpunit --coverage-text tests/BonLivraisonModelTest.php 
           ./vendor/bin/phpunit --coverage-text tests/ArticleModelTest.php 
-          ./vendor/bin/phpunit --coverage-text tests/Models/LigneBonLivraisonModelTest.php 
+          ./vendor/bin/phpunit --coverage-text tests/LigneBonLivraisonModelTest.php 
 
           
