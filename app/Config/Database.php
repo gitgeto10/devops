@@ -62,7 +62,7 @@ class Database extends Config
         'DSN'         => '',
         'hostname'    => '127.0.0.1',
         'username'    => 'root',
-        'password'    => 'root',
+        'password'    => '',
         'database'    => 'devops_db',
         'DBDriver'    => 'MySQLi',
         'DBPrefix'    => '',  // Needed to ensure we're working correctly with prefixes live. DO NOT REMOVE FOR CI DEVS
