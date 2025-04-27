@@ -21,6 +21,7 @@ class PanierModelTest extends TestCase {
 
     public function testFindAllPanier(): void
     {
+         $this->expectOutputString('');
         // Insertion de 2 entrées dans la table
         $this->model->insert(['n_article' => 'R200', 'client' => 'Jamila']);
         $this->model->insert(['n_article' => 'IP345', 'client' => 'Malika']);
