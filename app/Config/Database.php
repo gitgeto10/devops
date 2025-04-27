@@ -26,12 +26,12 @@ class Database extends Config
      */
     public array $default = [
         'DSN'          => '',
-        'hostname'     => 'localhost',
-        'username'     => 'root',
-        'password'     => '',
-        'database'     => 'devops_db',
-        'DBDriver'     => 'MySQLi',
-        'DBPrefix'     => '',
+        'hostname' => env('database.default.hostname', 'localhost'),
+        'username' => env('database.default.username', 'root'),
+        'password' => env('database.default.password', ''),
+        'database' => env('database.default.database', 'devops_db'),
+        'DBDriver' => env('database.default.DBDriver', 'MySQLi'),
+        'DBPrefix' => env('database.default.DBPrefix', ''),
         'pConnect'     => false,
         'DBDebug'      => true,
         'charset'      => 'utf8mb4',
@@ -164,12 +164,12 @@ class Database extends Config
      */
     public array $tests = [
         'DSN'         => '',
-        'hostname'    => '127.0.0.1',
-        'username'    => 'root',
-        'password'    => '',
-        'database'    => 'devops_db',
-        'DBDriver'    => 'MySQLi',
-        'DBPrefix'    => '',  // Needed to ensure we're working correctly with prefixes live. DO NOT REMOVE FOR CI DEVS
+        'hostname' => env('database.default.hostname', 'localhost'),
+        'username' => env('database.default.username', 'root'),
+        'password' => env('database.default.password', ''),
+        'database' => env('database.default.database', 'devops_db'),
+        'DBDriver' => env('database.default.DBDriver', 'MySQLi'),
+        'DBPrefix' => env('database.default.DBPrefix', ''),
         'pConnect'    => false,
         'DBDebug'     => true,
         'charset'     => 'utf8',
