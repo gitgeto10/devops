@@ -83,6 +83,15 @@ jobs:
             prixUnitaire DECIMAL(10,2) NOT NULL,
             qte INT NOT NULL
           );
+          CREATE TABLE IF NOT EXISTS lignefacture (
+            id INT PRIMARY KEY AUTO_INCREMENT,
+            id_facture INT NOT NULL,
+            id_article INT NOT NULL, 
+            quantity INT NOT NULL,
+            sub_total DECIMAL(10,2) NOT NULL, 
+            FOREIGN KEY (id_facture) REFERENCES factures(id),
+            FOREIGN KEY (id_article) REFERENCES article(id)
+          );
           EOF
       
       - name: Configure environment
@@ -111,5 +120,7 @@ jobs:
           ./vendor/bin/phpunit --coverage-text tests/BonLivraisonModelTest.php 
           ./vendor/bin/phpunit --coverage-text tests/ArticleModelTest.php 
           ./vendor/bin/phpunit --coverage-text tests/LigneBonLivraisonModelTest.php 
+          ./vendor/bin/phpunit --coverage-text tests/LigneFactureModelTest.php
+          ./vendor/bin/phpunit --coverage-text tests/UserModelTest.php
 
           
