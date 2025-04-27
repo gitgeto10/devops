@@ -1,7 +1,7 @@
 <?php
 namespace App\Models;
 
-use CodeIgniter\Model; // Ensure CodeIgniter is properly autoloaded in composer.json
+use CodeIgniter\Model; 
 
 class FactureModel extends Model
 {
