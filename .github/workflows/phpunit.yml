@@ -16,7 +16,7 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
-          MYSQL_ROOT_PASSWORD: $database_default_password
+          MYSQL_ROOT_PASSWORD: ''
           MYSQL_DATABASE: devops_db
         ports:
           - 3306:3306
@@ -48,7 +48,7 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --no-interaction --prefer-dist
 
-      - name: Load environment variables
+      - name: Load environment variables from .env
         run: |
           echo "Loading environment variables from .env"
           export $(cat .env | grep -v ^# | xargs)
@@ -72,21 +72,21 @@ jobs:
         run: |
           mysql -h 127.0.0.1 -P 3306 -u root devops_db -e "CREATE TABLE IF NOT EXISTS article (id INT AUTO_INCREMENT PRIMARY KEY, ref VARCHAR(50) NOT NULL, nom VARCHAR(255) NOT NULL, prixUnitaire DECIMAL(10,2) NOT NULL, qte INT NOT NULL);"
 
-      - name: Configure database
+      - name: Configure database from environment variables
         run: |
           echo "Setting up database connection"
-          echo "database.default.hostname = $database_default_hostname" >> .env
-          echo "database.default.username = $database_default_username" >> .env
-          echo "database.default.password = $database_default_password" >> .env
-          echo "database.default.database = $database_default_database" >> .env
-          echo "database.default.DBDriver = $database_default_DBDriver" >> .env
-          echo "database.default.port = $database_default_port" >> .env
-          echo "database.tests.hostname = $database_tests_hostname" >> .env
-          echo "database.tests.username = $database_tests_username" >> .env
-          echo "database.tests.password = $database_tests_password" >> .env
-          echo "database.tests.database = $database_tests_database" >> .env
-          echo "database.tests.DBDriver = $database_tests_DBDriver" >> .env
-          echo "database.tests.port = $database_tests_port" >> .env
+          echo "database.default.hostname = $DATABASE_DEFAULT_HOSTNAME" >> .env
+          echo "database.default.username = $DATABASE_DEFAULT_USERNAME" >> .env
+          echo "database.default.password = $DATABASE_DEFAULT_PASSWORD" >> .env
+          echo "database.default.database = $DATABASE_DEFAULT_DATABASE" >> .env
+          echo "database.default.DBDriver = $DATABASE_DEFAULT_DBDriver" >> .env
+          echo "database.default.port = $DATABASE_DEFAULT_PORT" >> .env
+          echo "database.tests.hostname = $DATABASE_TESTS_HOSTNAME" >> .env
+          echo "database.tests.username = $DATABASE_TESTS_USERNAME" >> .env
+          echo "database.tests.password = $DATABASE_TESTS_PASSWORD" >> .env
+          echo "database.tests.database = $DATABASE_TESTS_DATABASE" >> .env
+          echo "database.tests.DBDriver = $DATABASE_TESTS_DBDriver" >> .env
+          echo "database.tests.port = $DATABASE_TESTS_PORT" >> .env
 
       - name: Run migrations
         run: php spark migrate --all
