@@ -9,8 +9,8 @@
     columns="max"
     failOnRisky="false"
     failOnWarning="true"
-    cacheDirectory="build/.phpunit.cache">
     executionOrder="default"
+    cacheDirectory="build/.phpunit.cache">
     <coverage
         includeUncoveredFiles="true"
         pathCoverage="false"
