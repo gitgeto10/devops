@@ -1,9 +1,9 @@
-name: PHPUnit Tests UserModel + BonLivraisonModel
+name: PHPUnit LigneBonLivraison
 
 on:
   push:
     branches:
-      - BonLivraison
+      - LigneBonLivraison
   pull_request:
     branches:
       - main
@@ -86,4 +86,4 @@ jobs:
       
       - name: Run PHPUnit tests
         run: |
-          ./vendor/bin/phpunit --coverage-text tests/BonLivraisonModelTest.php 
+          ./vendor/bin/phpunit --coverage-text tests/LigneBonLivraisonModelTest.php 
