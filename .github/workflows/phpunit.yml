@@ -3,7 +3,7 @@ name: PHPUnit Tests BonLivraisonModel
 on:
   push:
     branches:
-      - BonLivraison
+      - main
   pull_request:
     branches:
       - main
