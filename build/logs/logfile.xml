@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="App\Tests\Models\PanierModelTest" file="C:\xampp\htdocs\Atelier 1 DevOps\tests\Models\PanierModelTest.php" tests="2" assertions="6" errors="0" failures="0" skipped="0" time="0.201754">
-    <testcase name="testInsertPanier" file="C:\xampp\htdocs\Atelier 1 DevOps\tests\Models\PanierModelTest.php" line="22" class="App\Tests\Models\PanierModelTest" classname="App.Tests.Models.PanierModelTest" assertions="5" time="0.150624">
+  <testsuite name="App\Tests\Models\PanierModelTest" file="C:\xampp\htdocs\Atelier 1 DevOps\tests\Models\PanierModelTest.php" tests="2" assertions="6" errors="0" failures="0" skipped="0" time="0.199104">
+    <testcase name="testInsertPanier" file="C:\xampp\htdocs\Atelier 1 DevOps\tests\Models\PanierModelTest.php" line="22" class="App\Tests\Models\PanierModelTest" classname="App.Tests.Models.PanierModelTest" assertions="5" time="0.148317">
       <system-out>&#13;
 </system-out>
     </testcase>
-    <testcase name="testFindAllPanier" file="C:\xampp\htdocs\Atelier 1 DevOps\tests\Models\PanierModelTest.php" line="43" class="App\Tests\Models\PanierModelTest" classname="App.Tests.Models.PanierModelTest" assertions="1" time="0.051130"/>
+    <testcase name="testFindAllPanier" file="C:\xampp\htdocs\Atelier 1 DevOps\tests\Models\PanierModelTest.php" line="43" class="App\Tests\Models\PanierModelTest" classname="App.Tests.Models.PanierModelTest" assertions="1" time="0.050787"/>
   </testsuite>
 </testsuites>
