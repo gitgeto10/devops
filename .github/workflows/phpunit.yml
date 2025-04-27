@@ -100,26 +100,9 @@ jobs:
           );
           EOF
       
-      - name: Configure environment
+      - name: Patch .env for CI
         run: |
-          cat <<EOF >> .env
-          CI_ENVIRONMENT = testing
-      
-          database.default.hostname = 127.0.0.1
-          database.default.username = root
-          database.default.password =
-          database.default.database = devops_db
-          database.default.DBDriver = MySQLi
-          database.default.port = 3306
-      
-          database.tests.hostname = 127.0.0.1
-          database.tests.username = root
-          database.tests.password =
-          database.tests.database = devops_db
-          database.tests.DBDriver = MySQLi
-          database.tests.port = 3306
-          EOF
-    
+          sed -i 's/localhost/127.0.0.1/g' .env
       
       - name: Run PHPUnit tests
         run: |
