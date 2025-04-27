@@ -100,10 +100,9 @@ jobs:
           );
           EOF
       
-      - name: Patch .env for CI
-        run: |
-          sed -i 's/localhost/127.0.0.1/g' .env
-      
+      - name: Copy .env.example to .env
+        run: cp .env.example .env
+        
       - name: Run PHPUnit tests
         run: |
           ./vendor/bin/phpunit --coverage-text tests/BonLivraisonModelTest.php 
