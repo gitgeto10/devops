@@ -177,7 +177,7 @@ class Database extends Config
                 'hostname'    => env('database.tests.hostname', 'localhost'),
                 'username'    => env('database.tests.username', 'root'),
                 'password'    => env('database.tests.password', ''),
-                'database'    => env('database.tests.database', 'devops_db_test'),
+                'database'    => env('database.tests.database', 'devops_db'),
                 'DBDriver'    => env('database.tests.DBDriver', 'MySQLi'),
                 'DBPrefix'    => env('database.tests.DBPrefix', ''),
                 'pConnect'    => false,
