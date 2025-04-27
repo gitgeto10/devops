@@ -59,6 +59,11 @@ jobs:
       - name: Prepare database schema
         run: |
           mysql -h 127.0.0.1 -P 3306 -u root devops_db <<EOF
+          CREATE TABLE IF NOT EXISTS users (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR(255) NOT NULL,
+            email VARCHAR(255) NOT NULL
+          );
           CREATE TABLE IF NOT EXISTS bonlivraison (
             id INT AUTO_INCREMENT PRIMARY KEY,
             status VARCHAR(50) NOT NULL,
@@ -105,3 +110,5 @@ jobs:
         run: |
           ./vendor/bin/phpunit --coverage-text tests/BonLivraisonModelTest.php 
           ./vendor/bin/phpunit --coverage-text tests/ArticleModelTest.php 
+
+          
