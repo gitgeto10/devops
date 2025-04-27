@@ -48,6 +48,11 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --no-interaction --prefer-dist
 
+      - name: Load environment variables
+        run: |
+          echo "Loading environment variables from .env"
+          export $(cat .env | grep -v ^# | xargs)
+
       - name: Debug PHPUnit version
         run: ./vendor/bin/phpunit --version
 
@@ -55,7 +60,7 @@ jobs:
         run: |
           echo "Waiting for MySQL to be ready..."
           for i in {1..30}; do
-            if mysqladmin ping -h 127.0.0.1 -P 3306 -u root -p1234 --silent; then
+            if mysqladmin ping -h 127.0.0.1 -P 3306 -u root --silent; then
               echo "MySQL is ready!"
               break
             fi
@@ -65,23 +70,23 @@ jobs:
 
       - name: Create article table
         run: |
-          mysql -h 127.0.0.1 -P 3306 -u root  devops_db -e "CREATE TABLE IF NOT EXISTS article (id INT AUTO_INCREMENT PRIMARY KEY, ref VARCHAR(50) NOT NULL, nom VARCHAR(255) NOT NULL, prixUnitaire DECIMAL(10,2) NOT NULL, qte INT NOT NULL);"
+          mysql -h 127.0.0.1 -P 3306 -u root devops_db -e "CREATE TABLE IF NOT EXISTS article (id INT AUTO_INCREMENT PRIMARY KEY, ref VARCHAR(50) NOT NULL, nom VARCHAR(255) NOT NULL, prixUnitaire DECIMAL(10,2) NOT NULL, qte INT NOT NULL);"
 
       - name: Configure database
         run: |
           echo "Setting up database connection"
-          echo "database.default.hostname = 127.0.0.1" >> .env
-          echo "database.default.username = root" >> .env
-          echo "database.default.password = 1234" >> .env
-          echo "database.default.database = devops_db" >> .env
-          echo "database.default.DBDriver = MySQLi" >> .env
-          echo "database.default.port = 3306" >> .env
-          echo "database.tests.hostname = 127.0.0.1" >> .env
-          echo "database.tests.username = root" >> .env
-          echo "database.tests.password = 1234" >> .env
-          echo "database.tests.database = devops_db" >> .env
-          echo "database.tests.DBDriver = MySQLi" >> .env
-          echo "database.tests.port = 3306" >> .env
+          echo "database.default.hostname = $database_default_hostname" >> .env
+          echo "database.default.username = $database_default_username" >> .env
+          echo "database.default.password = $database_default_password" >> .env
+          echo "database.default.database = $database_default_database" >> .env
+          echo "database.default.DBDriver = $database_default_DBDriver" >> .env
+          echo "database.default.port = $database_default_port" >> .env
+          echo "database.tests.hostname = $database_tests_hostname" >> .env
+          echo "database.tests.username = $database_tests_username" >> .env
+          echo "database.tests.password = $database_tests_password" >> .env
+          echo "database.tests.database = $database_tests_database" >> .env
+          echo "database.tests.DBDriver = $database_tests_DBDriver" >> .env
+          echo "database.tests.port = $database_tests_port" >> .env
 
       - name: Run migrations
         run: php spark migrate --all
